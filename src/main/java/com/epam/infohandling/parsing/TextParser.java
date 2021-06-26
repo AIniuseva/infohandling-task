@@ -4,8 +4,15 @@ import com.epam.infohandling.model.Composite;
 
 public class TextParser extends AbstractParser {
 
+    private static final String SPLITTER = "\n";
+
     @Override
     public Composite parse(String text) {
-        throw new UnsupportedOperationException();
+        return super.parse(text);
+    }
+
+    @Override
+    protected String getSplitter() {
+        return SPLITTER;
     }
 }
