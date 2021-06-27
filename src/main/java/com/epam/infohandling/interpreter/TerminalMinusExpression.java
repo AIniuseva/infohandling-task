@@ -1,10 +1,10 @@
 package com.epam.infohandling.interpreter;
 
-public class TerminalDivideExpression implements Expression {
+public class TerminalMinusExpression implements Expression {
 
     @Override
     public void interpret(Context context) {
         int saveInt = context.popValue();
-        context.pushValue(context.popValue() / saveInt);
+        context.pushValue(context.popValue() - saveInt);
     }
 }

@@ -48,7 +48,6 @@ public class TextProcessorTest {
         Composite expectedComposite = getExpectedComposite();
         //then
         Assert.assertEquals(expectedComposite, actualComposite); //TODO: change
-
     }
 
     private String getTextForTest() {
