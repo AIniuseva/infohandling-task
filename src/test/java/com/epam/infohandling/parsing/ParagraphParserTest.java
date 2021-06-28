@@ -1,13 +1,21 @@
 package com.epam.infohandling.parsing;
 
+import com.epam.infohandling.TestData;
 import com.epam.infohandling.model.Composite;
 import com.epam.infohandling.model.Leaf;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 public class ParagraphParserTest {
 
     private final String TEST_PARAGRAPH = "Some text. Some text. Some text1.";
+    private TestData testData;
+
+    @Before
+    public void setUp() {
+        testData = new TestData();
+    }
 
     @Test
     public void testWhenTextIsGiven() {
@@ -15,7 +23,7 @@ public class ParagraphParserTest {
         ParagraphParser paragraphParser = new ParagraphParser();
         //when
         Composite actualComposite = paragraphParser.parse(TEST_PARAGRAPH);
-        Composite expectedComposite = getCompositeForTest();
+        Composite expectedComposite = testData.getCompositeForParagraphTest();
         //then
         Assert.assertEquals(expectedComposite.getChild(0), actualComposite.getChild(0));
         Assert.assertEquals(expectedComposite.getChild(1), actualComposite.getChild(1));
@@ -42,11 +50,4 @@ public class ParagraphParserTest {
         Assert.assertNull(actualComposite);
     }
 
-    public Composite getCompositeForTest() {
-        Composite composite = new Composite();
-        composite.add(new Leaf("Some text"));
-        composite.add(new Leaf("Some text"));
-        composite.add(new Leaf("Some text1"));
-        return composite;
-    }
 }

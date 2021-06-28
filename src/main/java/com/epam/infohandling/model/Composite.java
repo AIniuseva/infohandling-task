@@ -6,7 +6,14 @@ import java.util.Objects;
 
 public class Composite implements Component {
 
-    private final List<Component> components = new ArrayList<>();
+    private List<Component> components = new ArrayList<>();
+
+    public Composite() {
+    }
+
+    public Composite(List<Component> components) {
+        this.components = components;
+    }
 
     public void add(Component component) {
         components.add(component);
@@ -18,6 +25,10 @@ public class Composite implements Component {
 
     public Object getChild(int index) {
         return components.get(index);
+    }
+
+    public List<Component> getComponents() {
+        return components;
     }
 
     @Override

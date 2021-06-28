@@ -1,13 +1,21 @@
 package com.epam.infohandling.parsing;
 
+import com.epam.infohandling.TestData;
 import com.epam.infohandling.model.Composite;
 import com.epam.infohandling.model.Leaf;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 public class SentenceParserTest {
 
     private final String TEST_SENTENCE = "Lorem ipsum [5 8 +] dolor sit amet, consectetur adipiscing elit";
+    private TestData testData;
+
+    @Before
+    public void setUp() {
+        testData = new TestData();
+    }
 
     @Test
     public void testWhenTextIsGiven() {
@@ -15,7 +23,7 @@ public class SentenceParserTest {
         SentenceParser sentenceParser = new SentenceParser();
         //when
         Composite actualComposite = sentenceParser.parse(TEST_SENTENCE);
-        Composite expectedComposite = getCompositeForTest();
+        Composite expectedComposite = testData.getCompositeForSentenceTest();
         //then
         Assert.assertEquals(expectedComposite.getChild(0), actualComposite.getChild(0));
         Assert.assertEquals(expectedComposite.getChild(1), actualComposite.getChild(1));
@@ -47,22 +55,5 @@ public class SentenceParserTest {
         Composite actualComposite = sentenceParser.parse("");
         //then
         Assert.assertNull(actualComposite);
-    }
-
-
-    private Composite getCompositeForTest() {
-        Composite composite = new Composite();
-
-        composite.add(new Leaf("Lorem"));
-        composite.add(new Leaf("ipsum"));
-        composite.add(new Leaf("[5 8 +]"));
-        composite.add(new Leaf("dolor"));
-        composite.add(new Leaf("sit"));
-        composite.add(new Leaf("amet,"));
-        composite.add(new Leaf("consectetur"));
-        composite.add(new Leaf("adipiscing"));
-        composite.add(new Leaf("elit"));
-
-        return composite;
     }
 }

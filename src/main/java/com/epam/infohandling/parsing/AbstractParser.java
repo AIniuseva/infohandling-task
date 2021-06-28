@@ -36,5 +36,4 @@ public abstract class AbstractParser implements Parser {
     }
 
     protected abstract String getSplitter();
-
 }

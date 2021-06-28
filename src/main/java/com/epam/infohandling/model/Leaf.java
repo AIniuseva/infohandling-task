@@ -14,6 +14,10 @@ public class Leaf implements Component {
         return value;
     }
 
+    public void setValue(String value) {
+        this.value = value;
+    }
+
     @Override
     public void operation() {
         throw new UnsupportedOperationException();
@@ -21,7 +25,6 @@ public class Leaf implements Component {
 
     @Override
     public boolean equals(Object o) {
-
         if (this == o) {
             return true;
         }
