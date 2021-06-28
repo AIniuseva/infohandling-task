@@ -143,12 +143,4 @@ public class TestData {
         }
         return composite;
     }
-
-
-    public static void main(String[] args) {
-        TextLogic textLogic = new TextLogic();
-
-        String s = textLogic.restore(new TestData().getCompositeTextTree());
-
-    }
 }
