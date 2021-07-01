@@ -15,25 +15,23 @@ public class Composite implements Component {
         this.components = components;
     }
 
-    public void add(Component component) {
-        components.add(component);
-    }
-
-    public void remove(Component component) {
-        components.remove(component);
-    }
-
-    public Object getChild(int index) {
-        return components.get(index);
-    }
-
     public List<Component> getComponents() {
         return components;
     }
 
     @Override
-    public void operation() {
-        throw new UnsupportedOperationException();
+    public void add(Component component) {
+        components.add(component);
+    }
+
+    @Override
+    public void remove(Component component) {
+        components.remove(component);
+    }
+
+    @Override
+    public Component getChild(int index) {
+        return components.get(index);
     }
 
     @Override

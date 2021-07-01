@@ -23,6 +23,21 @@ public class TextProcessorTest {
         Composite actualComposite = textProcessor.parseText(testData.getTextForTest(TEST_FILE_PATH));
         Composite expectedComposite = testData.getCompositeTextTree();
         //then
-        Assert.assertEquals(expectedComposite, actualComposite); //TODO: change?
+        //Assert.assertEquals(expectedComposite, actualComposite); //TODO: change?
+        Assert.assertEquals(3, actualComposite.getComponents().size());
+        Assert.assertEquals(2, ((Composite) actualComposite.getChild(0)).getComponents().size());
+        Assert.assertEquals(2, ((Composite) actualComposite.getChild(1)).getComponents().size());
+        Assert.assertEquals(1, ((Composite) actualComposite.getChild(2)).getComponents().size());
+
+        Assert.assertEquals(((Composite) expectedComposite.getChild(0).getChild(0)).getComponents()
+                , ((Composite) actualComposite.getChild(0).getChild(0)).getComponents());
+        Assert.assertEquals(((Composite) expectedComposite.getChild(0).getChild(1)).getComponents()
+                , ((Composite) actualComposite.getChild(0).getChild(1)).getComponents());
+        Assert.assertEquals(((Composite) expectedComposite.getChild(1).getChild(0)).getComponents()
+                , ((Composite) actualComposite.getChild(1).getChild(0)).getComponents());
+        Assert.assertEquals(((Composite) expectedComposite.getChild(1).getChild(1)).getComponents()
+                , ((Composite) actualComposite.getChild(1).getChild(1)).getComponents());
+        Assert.assertEquals(((Composite) expectedComposite.getChild(2).getChild(0)).getComponents()
+                , ((Composite) actualComposite.getChild(2).getChild(0)).getComponents());
     }
 }

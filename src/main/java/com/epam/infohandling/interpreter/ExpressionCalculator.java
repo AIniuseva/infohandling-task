@@ -2,15 +2,16 @@ package com.epam.infohandling.interpreter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ExpressionCalculator {
 
-    public int calculate(String expression) {
+    public int calculate(String expression, Map<String, Integer> variables) {
         if (expression == null || "".equals(expression)) {
             return 0;
         }
         Context context = new Context();
-        List<Expression> expressions = parse(expression);
+        List<Expression> expressions = parse(expression, variables);
 
         for (Expression terminal : expressions) {
             terminal.interpret(context);
@@ -18,7 +19,7 @@ public class ExpressionCalculator {
         return context.popValue();
     }
 
-    private List<Expression> parse(String expression) {
+    private List<Expression> parse(String expression, Map<String, Integer> variables) {
         List<Expression> expressions = new ArrayList<>();
         expression = expression.replaceAll("[\\[\\]]", "");
         expression = expression.replaceAll("[\\–]", "-");
@@ -44,6 +45,8 @@ public class ExpressionCalculator {
                 default:
                     if (lexeme.matches("\\d+")) {
                         expressions.add(new NonterminalExpression(Integer.parseInt(lexeme)));
+                    } else if (lexeme.matches("[a-z]")) {
+                        expressions.add(new NonterminalExpression(variables.get(lexeme)));
                     }
                     break;
             }
