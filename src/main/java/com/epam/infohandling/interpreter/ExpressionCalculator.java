@@ -6,12 +6,24 @@ import java.util.Map;
 
 public class ExpressionCalculator {
 
-    public int calculate(String expression, Map<String, Integer> variables) {
+    private Map<String, Integer> variables;
+
+    public ExpressionCalculator(Map<String, Integer> variables) {
+        this.variables = variables;
+    }
+
+    public ExpressionCalculator() {
+    }
+
+    public Map<String, Integer> getVariables() {
+        return variables;
+    }
+    public int calculate(String expression) {
         if (expression == null || "".equals(expression)) {
             return 0;
         }
         Context context = new Context();
-        List<Expression> expressions = parse(expression, variables);
+        List<Expression> expressions = parse(expression);
 
         for (Expression terminal : expressions) {
             terminal.interpret(context);
@@ -19,10 +31,9 @@ public class ExpressionCalculator {
         return context.popValue();
     }
 
-    private List<Expression> parse(String expression, Map<String, Integer> variables) {
+    private List<Expression> parse(String expression) {
         List<Expression> expressions = new ArrayList<>();
         expression = expression.replaceAll("[\\[\\]]", "");
-        expression = expression.replaceAll("[\\–]", "-");
 
         for (String lexeme : expression.split("\\s+")) {
             if (lexeme.isEmpty()) {

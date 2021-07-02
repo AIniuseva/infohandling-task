@@ -4,6 +4,8 @@ import com.epam.infohandling.interpreter.ExpressionCalculator;
 import com.epam.infohandling.model.Component;
 import com.epam.infohandling.model.Composite;
 import com.epam.infohandling.model.Leaf;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -14,8 +16,9 @@ import java.util.ArrayList;
 
 public class TextLogic {
 
+    private static final String EXPRESSION_PATTERN = "(\\[.*?\\])";
+    private static final Logger LOGGER = LogManager.getLogger(TextLogic.class);
     private final ExpressionCalculator expressionCalculator;
-    private final String EXPRESSION_PATTERN = "(\\[.*?\\])";
 
     public TextLogic() {
         this.expressionCalculator = new ExpressionCalculator();
@@ -25,26 +28,34 @@ public class TextLogic {
         this.expressionCalculator = expressionCalculator;
     }
 
-    public Composite calculate(Composite text, Map<String, Integer> variables) {
+    public Composite calculate(Composite text) {
 
-        if(text.getComponents().isEmpty()){
+        if (text == null || text.getComponents().isEmpty()) {
+            LOGGER.error("Insufficient data to calculate the text.");
             return null;
         }
 
         Composite calculatedComposite = new Composite(text.getComponents());
 
-        processCalculation(calculatedComposite, variables);
+        processCalculation(calculatedComposite);
 
         return calculatedComposite;
     }
 
     public String restore(Composite text) {
+
+        if (text == null || text.getComponents().isEmpty()) {
+            LOGGER.error("Insufficient data to restore the text.");
+            return null;
+        }
+
         return processRestoration(text, 0);
     }
 
     public int countSentencesWithEqualWords(Composite text) {
 
-        if(text.getComponents().isEmpty()){
+        if (text == null || text.getComponents().isEmpty()) {
+            LOGGER.error("Insufficient data to count sentences with equal words.");
             return 0;
         }
 
@@ -63,7 +74,8 @@ public class TextLogic {
 
     public void sortSentencesLexemeInDescending(Composite text) {
 
-        if(text.getComponents().isEmpty()){
+        if (text == null || text.getComponents().isEmpty()) {
+            LOGGER.error("Insufficient data for sorting.");
             return;
         }
 
@@ -76,7 +88,7 @@ public class TextLogic {
                     } else if (((Composite) o1).getComponents().size() > ((Composite) o2).getComponents().size()) {
                         return -1;
                     }
-                    return 0; //TODO: change?
+                    return 0;
                 }
             });
         }
@@ -84,7 +96,8 @@ public class TextLogic {
 
     public void sortInAlphabeticalOrder(Composite text) {
 
-        if(text.getComponents().isEmpty()){
+        if (text == null || text.getComponents().isEmpty()) {
+            LOGGER.error("Insufficient data for sorting.");
             return;
         }
 
@@ -94,7 +107,7 @@ public class TextLogic {
                     @Override
                     public int compare(Component o1, Component o2) {
                         return ((Leaf) o1).getValue().compareTo(((Leaf) o2).getValue());
-                    } //TODO: change?
+                    }
                 });
             } else {
                 sortInAlphabeticalOrder((Composite) component);
@@ -104,7 +117,8 @@ public class TextLogic {
 
     public void sortByLetterCountInDescending(Composite text) {
 
-        if(text.getComponents().isEmpty()){
+        if (text == null || text.getComponents().isEmpty()) {
+            LOGGER.error("Insufficient data for sorting.");
             return;
         }
 
@@ -129,7 +143,8 @@ public class TextLogic {
 
     public void removeWordsWithGivenLength(Composite text, int length) {
 
-        if(text.getComponents().isEmpty() || length == 0){
+        if (text == null || text.getComponents().isEmpty() || length == 0) {
+            LOGGER.error("Insufficient data for words removing.");
             return;
         }
 
@@ -145,7 +160,8 @@ public class TextLogic {
 
     public void removeWordsWithGivenLetter(Composite text, char letter) {
 
-        if(text.getComponents().isEmpty()){
+        if (text == null || text.getComponents().isEmpty()) {
+            LOGGER.error("Insufficient data for words removing.");
             return;
         }
 
@@ -160,7 +176,8 @@ public class TextLogic {
 
     public void reverseLexemes(Composite text) {
 
-        if(text.getComponents().isEmpty()){
+        if (text == null || text.getComponents().isEmpty()) {
+            LOGGER.error("Insufficient data for reversing.");
             return;
         }
 
@@ -193,12 +210,12 @@ public class TextLogic {
         return String.valueOf(restoredText);
     }
 
-    private void processCalculation(Composite composite, Map<String, Integer> variables) {
+    private void processCalculation(Composite composite) {
         for (Component component : composite.getComponents()) {
             if (component instanceof Composite) {
-                processCalculation((Composite) component, variables);
+                processCalculation((Composite) component);
             } else if (component instanceof Leaf && ((Leaf) component).getValue().matches(EXPRESSION_PATTERN)) {
-                int calculatedValue = expressionCalculator.calculate(((Leaf) component).getValue(), variables);
+                int calculatedValue = expressionCalculator.calculate(((Leaf) component).getValue());
                 ((Leaf) component).setValue(String.valueOf(calculatedValue));
             }
         }
@@ -208,7 +225,7 @@ public class TextLogic {
         if (composite.getChild(0) instanceof Composite) {
             return 0;
         }
-        String saveValue = "";
+        String saveValue;
         int shift = 0;
         for (int i = 0; i < composite.getComponents().size(); i++) {
             saveValue = ((Leaf) composite.getComponents().get(i)).getValue();

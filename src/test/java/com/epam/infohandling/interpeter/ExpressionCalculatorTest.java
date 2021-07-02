@@ -1,12 +1,13 @@
 package com.epam.infohandling.interpeter;
 
-import com.epam.infohandling.TestData;
+import com.epam.infohandling.util.TestData;
 import com.epam.infohandling.interpreter.ExpressionCalculator;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Map;
+
+import static org.junit.Assert.assertEquals;
 
 public class ExpressionCalculatorTest {
 
@@ -22,35 +23,36 @@ public class ExpressionCalculatorTest {
         //when
         TestData testData = new TestData();
         Map<String, Integer> variables = testData.getVariables();
+        expressionCalculator = new ExpressionCalculator(variables);
 
-        int firstActualResult = expressionCalculator.calculate("[5 8 + 120 *]", variables);
-        int secondActualResult = expressionCalculator.calculate("[13 x +]", variables);
-        int thirdActualResult = expressionCalculator.calculate("[3 4 – 9 * 6 +]", variables);
-        int fourthActualResult = expressionCalculator.calculate("[71 2 * 3 +]", variables);
-        int fifthActualResult = expressionCalculator.calculate("[72 2 / 3 +]", variables);
-        int sixthActualResult = expressionCalculator.calculate("[5 y + 120 *]", variables);
+        int firstActualResult = expressionCalculator.calculate("[5 8 + 120 *]");
+        int secondActualResult = expressionCalculator.calculate("[13 x +]");
+        int thirdActualResult = expressionCalculator.calculate("[3 4 - 9 * 6 +]");
+        int fourthActualResult = expressionCalculator.calculate("[71 2 * 3 +]");
+        int fifthActualResult = expressionCalculator.calculate("[72 2 / 3 +]");
+        int sixthActualResult = expressionCalculator.calculate("[5 y + 120 *]");
         //then
-        Assert.assertEquals(1560, firstActualResult);
-        Assert.assertEquals(15, secondActualResult);
-        Assert.assertEquals(-3, thirdActualResult);
-        Assert.assertEquals(145, fourthActualResult);
-        Assert.assertEquals(39, fifthActualResult);
-        Assert.assertEquals(1560, sixthActualResult);
+        assertEquals(1560, firstActualResult);
+        assertEquals(15, secondActualResult);
+        assertEquals(-3, thirdActualResult);
+        assertEquals(145, fourthActualResult);
+        assertEquals(39, fifthActualResult);
+        assertEquals(1560, sixthActualResult);
     }
 
     @Test
-    public void testCalculatorWhenNull() {
+    public void testCalculatorWhenExpressionIsNull() {
         //when
-        int actualResult = expressionCalculator.calculate(null, null);
+        int actualResult = expressionCalculator.calculate(null);
         //then
-        Assert.assertEquals(0, actualResult);
+        assertEquals(0, actualResult);
     }
 
     @Test
-    public void testCalculatorWhenEmpty() {
+    public void testCalculatorWhenExpressionIsEmpty() {
         //when
-        int actualResult = expressionCalculator.calculate("", null);
+        int actualResult = expressionCalculator.calculate("");
         //then
-        Assert.assertEquals(0, actualResult);
+        assertEquals(0, actualResult);
     }
 }

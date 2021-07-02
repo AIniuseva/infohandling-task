@@ -1,4 +1,4 @@
-package com.epam.infohandling;
+package com.epam.infohandling.util;
 
 import com.epam.infohandling.model.Composite;
 import com.epam.infohandling.model.Leaf;
@@ -12,7 +12,7 @@ import java.util.Map;
 public class TestData {
 
     private final String[] FIRST_SENTENCE = new String[]{"It", "has", "survived", "-", "not", "only", "(five)", "centuries,",
-            "but", "also", "the", "leap", "into", "[13 x +]", "electronic", "typesetting,", "remaining", "[3 5 +]", "essentially", "[3 4 – 9 * 6 +]", "unchanged"};
+            "but", "also", "the", "leap", "into", "[13 x +]", "electronic", "typesetting,", "remaining", "[3 5 +]", "essentially", "[3 4 - 9 * 6 +]", "unchanged"};
     private final String[] SECOND_SENTENCE = new String[]{"It", "was", "popularised", "in", "the", "[ 20 1 - ]", "with", "the", "release",
             "of", "Letraset", "sheets", "containing", "Lorem", "Ipsum", "passages,", "and", "more", "recently", "with", "desktop", "publishing",
             "software", "like", "Aldus", "PageMaker", "including", "versions", "of", "Lorem", "Ipsum"};
@@ -87,8 +87,8 @@ public class TestData {
         Composite composite = getCompositeTemplate();
 
         Composite firstParFirstSentence = fillWithLeafs(new String[]{"[13 x +]", "[3 5 +]", "lorem", "[8 9 + 2 *]"});
-        Composite secondParFirstSentence = fillWithLeafs(new String[]{"Lorem", "[3 4 – 9 * 6 +]", "ipsum", "[ 20 1 - ]", "[6 2 /]", "word"});
-        Composite thirdParFirstSentence = fillWithLeafs(new String[]{"[71 2 * 3 +]", "word", "[5 y + 120 *]", "word", "[80 2 / + 3]", "lorem", "ipsum"});
+        Composite secondParFirstSentence = fillWithLeafs(new String[]{"Lorem", "[3 4 - 9 * 6 +]", "ipsum", "[ 20 1 - ]", "[6 2 /]", "word"});
+        Composite thirdParFirstSentence = fillWithLeafs(new String[]{"[71 2 * 3 +]", "word", "[5 y + 120 *]", "word", "[80 2 / 3 +]", "lorem", "ipsum"});
 
         composite.getComponents().get(0).add(firstParFirstSentence);
         composite.getComponents().get(1).add(secondParFirstSentence);
@@ -115,8 +115,8 @@ public class TestData {
         Composite composite = getCompositeTemplate();
 
         Composite firstParSentence = fillWithLeafs(new String[]{"[8 9 + 2 *]", "lorem", "[3 5 +]", "[13 x +]"});
-        Composite secondParSentence = fillWithLeafs(new String[]{"word", "[6 2 /]", "[ 20 1 - ]", "ipsum", "[3 4 – 9 * 6 +]", "Lorem"});
-        Composite thirdParSentence = fillWithLeafs(new String[]{"ipsum", "lorem", "[80 2 / + 3]", "word", "[5 y + 120 *]", "word", "[71 2 * 3 +]"});
+        Composite secondParSentence = fillWithLeafs(new String[]{"word", "[6 2 /]", "[ 20 1 - ]", "ipsum", "[3 4 - 9 * 6 +]", "Lorem"});
+        Composite thirdParSentence = fillWithLeafs(new String[]{"ipsum", "lorem", "[80 2 / 3 +]", "word", "[5 y + 120 *]", "word", "[71 2 * 3 +]"});
 
         composite.getComponents().get(0).add(firstParSentence);
         composite.getComponents().get(1).add(secondParSentence);
@@ -130,8 +130,8 @@ public class TestData {
         Composite composite = getCompositeTemplate();
 
         Composite firstParSentence = fillWithLeafs(new String[]{"[13 x +]", "[3 5 +]", "lorem", "[8 9 + 2 *]"});
-        Composite secondParSentence = fillWithLeafs(new String[]{"Lorem", "[3 4 – 9 * 6 +]", "ipsum", "[ 20 1 - ]", "[6 2 /]"});
-        Composite thirdParSentence = fillWithLeafs(new String[]{"[71 2 * 3 +]", "[5 y + 120 *]", "[80 2 / + 3]", "lorem", "ipsum"});
+        Composite secondParSentence = fillWithLeafs(new String[]{"Lorem", "[3 4 - 9 * 6 +]", "ipsum", "[ 20 1 - ]", "[6 2 /]"});
+        Composite thirdParSentence = fillWithLeafs(new String[]{"[71 2 * 3 +]", "[5 y + 120 *]", "[80 2 / 3 +]", "lorem", "ipsum"});
 
         composite.getComponents().get(0).add(firstParSentence);
         composite.getComponents().get(1).add(secondParSentence);

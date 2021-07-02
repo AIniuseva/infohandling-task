@@ -17,9 +17,11 @@ public abstract class AbstractParser implements Parser {
 
     @Override
     public Composite parse(String text) {
+
         if (text == null || "".equals(text)) {
             return null;
         }
+
         Composite composite = new Composite();
         String[] parts = text.split(getSplitter());
 
@@ -30,7 +32,6 @@ public abstract class AbstractParser implements Parser {
             } else {
                 composite.add(new Leaf(part));
             }
-
         }
         return composite;
     }
