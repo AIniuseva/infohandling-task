@@ -10,7 +10,6 @@ import org.apache.logging.log4j.Logger;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Locale;
-import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -156,7 +155,6 @@ public class TextLogic {
             }
         }
     }
-
 
     public void removeWordsWithGivenLetter(Composite text, char letter) {
 
